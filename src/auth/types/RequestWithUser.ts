@@ -1,9 +1,9 @@
-import { Request } from 'express';
+// import { Request } from 'express';
 
-export interface RequestWithUser extends Request {
-  user: {
-    userId: string; // userId from JWT payload
-    role?: 'user' | 'admin';
-    email?: string;
-  };
-}
+// export interface RequestWithUser extends Request {
+//   user: {
+//     userId: string; // userId from JWT payload
+//     role?: 'user' | 'admin';
+//     email?: string;
+//   };
+// }
