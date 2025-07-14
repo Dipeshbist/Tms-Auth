@@ -74,7 +74,7 @@ export class UserService {
       where: { email },
       data: {
         otp: hashedOtp,
-        otpExpiresAt: otpExpiry,
+        otpExpiry: otpExpiry,
       },
     });
   }

@@ -1,14 +1,15 @@
-export interface JwtConfig {
+export interface JwtConfigOptions {
   secret: string;
   signOptions: {
     expiresIn: string;
   };
 }
 
-export interface MailerConfig {
+export interface MailerConfigOptions {
   transport: {
-    host: string;
-    port: number;
+    service?: string;
+    host?: string;
+    port?: number;
     auth: {
       user: string;
       pass: string;

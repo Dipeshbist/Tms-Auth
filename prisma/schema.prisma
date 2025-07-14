@@ -13,7 +13,6 @@ model User {
   email          String           @unique
   password       String
   otp            String?
-  otpExpiry      DateTime?
   otpExpiresAt   DateTime?
   createdAt      DateTime         @default(now())
   role           String           @default("user")

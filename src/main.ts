@@ -20,7 +20,7 @@ function setupCors(app: INestApplication): void {
 
 function setupSwagger(app: INestApplication): void {
   const documentBuilder = new DocumentBuilder()
-    .setTitle('AUth Update API')
+    .setTitle('TMS Auth Update API')
     .setDescription('This is the API documentation for Auth update.')
     .setVersion('1.0')
     .addBearerAuth(

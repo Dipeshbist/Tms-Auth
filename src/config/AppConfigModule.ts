@@ -4,11 +4,9 @@ import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { JwtConfig } from './JwtConfig';
 import { PrismaConfig } from './PrismaConfig';
-import {
-  JwtConfig as JwtConfigType,
-  MailerConfig as MailerConfigType,
-} from './ConfigTypes';
 import { MailerConfig } from './MailerConfig';
+import { JwtConfigOptions } from './ConfigTypes';
+import { MailerConfigOptions } from './ConfigTypes';
 
 @Module({
   imports: [
@@ -22,12 +20,8 @@ import { MailerConfig } from './MailerConfig';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService): JwtModuleOptions => {
-        const jwtConfig = configService.get<JwtConfigType>('jwt');
-
-        if (!jwtConfig) {
-          throw new Error('JWT config is not defined');
-        }
-
+        const jwtConfig = configService.get<JwtConfigOptions>('jwt');
+        if (!jwtConfig) throw new Error('JWT config missing');
         return {
           secret: jwtConfig.secret,
           signOptions: jwtConfig.signOptions,
@@ -38,17 +32,13 @@ import { MailerConfig } from './MailerConfig';
     MailerModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService): MailerConfigType => {
-        const mailerConfig = configService.get<MailerConfigType>('mailer');
-
-        if (!mailerConfig) {
-          throw new Error('Mailer config is not defined');
-        }
-
+      useFactory: (configService: ConfigService): MailerConfigOptions => {
+        const mailerConfig = configService.get<MailerConfigOptions>('mailer');
+        if (!mailerConfig) throw new Error('Mailer config missing');
         return mailerConfig;
       },
     }),
   ],
-  exports: [JwtModule],
+  exports: [JwtModule, MailerModule],
 })
 export class AppConfigModule {}
