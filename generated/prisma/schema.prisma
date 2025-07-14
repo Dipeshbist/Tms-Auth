@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  password     String
+  otp          String?
+  otpExpiry    DateTime?
+  otpExpiresAt DateTime?
+  createdAt    DateTime  @default(now())
+  role         String    @default("user")
+  refreshToken String?
+}
+
+model Device {
+  id         String    @id @default(uuid())
+  name       String
+  posId      String    @unique
+  status     String
+  lastSeenAt DateTime?
+  createdAt  DateTime  @default(now())
+  logs       Log[]
+}
+
+model Log {
+  id        String   @id @default(uuid())
+  message   String
+  topic     String
+  deviceId  String
+  createdAt DateTime @default(now())
+
+  device Device @relation(fields: [deviceId], references: [id])
+}
