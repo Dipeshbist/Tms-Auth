@@ -15,7 +15,6 @@ export class EmailService {
     const otpExpiry = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
     const hashedOtp = await bcrypt.hash(otp, 10);
     await this.userService.setOtp(email, hashedOtp, otpExpiry);
-
     await this.mailerService.sendMail({
       to: email,
       subject: 'Your OTP Code for Password Reset',
